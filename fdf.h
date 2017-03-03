@@ -22,6 +22,15 @@
 # include "minilibx/mlx.h"
 # include "libft/includes/libft.h"
 
+typedef struct 		s_coord
+{
+	int				x;
+	int				y;
+	int				z;
+	t_coord			*next;
+}					t_coord;
+
+
 char		**ft_get_file(char *path);
 
 #endif
