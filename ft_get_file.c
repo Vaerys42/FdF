@@ -28,23 +28,27 @@ char		**ft_get_file(char *path)
 
 t_coord		*ft_to_struct(char	**file)
 {
-	int		i;
-	int		j;
-	t_coord		*cord_list;
+	t_coord		*coo;
+	char		**line;
+	int			x;
+	int			y;
 
-	i = 0;
-	while (file[i] != 0)
+	y = 0;
+	x = 0;
+	while (file[y] != 0)
 	{
-		j = 0;
-		while (file[i][j] != 0)
+		x = 0;
+		line = ft_strsplit(file[y], ' ');
+		while (line[x++] != NULL)
 		{
-			coord_list->x = j;
-			coord_list->y = i;
-			coord_list->z = ft_atoi(file[i][j]);
-			coord_list = coord_list->next;
-			j++;
+			coo->x = x;
+			coo->y = y;
+			coo->z = ft_atoi(line[x]);
+			x++;
+			coo = coo->next;
 		}
-		i++;
+		y++;
 	}
-	coord_list->next = NULL;
+	coo->next = NULL;
+	return (coo);
 }

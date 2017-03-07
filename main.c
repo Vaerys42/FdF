@@ -15,11 +15,16 @@
 int			main(int argc, char **argv)
 {
 	char	**file;
+	int		x;
+	int		y;
 
+	x = 200;
+	y = 200;
 	if (argc != 2)
 	{
 		write(1, "Usage : ./fdf <filename> [ case_size z_size ]\n", 46);
 		return (0);
 	}
 	file = ft_get_file(argv[1]);
+	open_new();
 }
