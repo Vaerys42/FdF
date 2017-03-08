@@ -1,30 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   create_graph.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kboucaud <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/03/03 14:35:08 by kboucaud          #+#    #+#             */
-/*   Updated: 2017/03/03 14:35:09 by kboucaud         ###   ########.fr       */
+/*   Created: 2017/03/08 15:25:02 by kboucaud          #+#    #+#             */
+/*   Updated: 2017/03/08 15:25:04 by kboucaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int			main(int argc, char **argv)
+t_coord		ft_graph_size(t_coord *coo)
 {
-	char	**file;
-	int		x;
-	int		y;
+	t_coord		size;
 
-	x = 200;
-	y = 200;
-	if (argc != 2)
+	size.next = NULL;
+	size.x = coo->x;
+	size.y = coo->y;
+	size.z = coo->z;
+	while (coo->next != NULL)
 	{
-		write(1, "Usage : ./fdf <filename> [ case_size z_size ]\n", 46);
-		return (0);
+		if (coo->x > size.x)
+			size.x = coo->x;
+		if (coo->y > size.y)
+			size.y = coo->y;
+		if (coo->z > size.z)
+			size.z = coo->z;
+		coo = coo->next;
 	}
-	//file = ft_get_file(argv[1]);
-	open_new();
+	return (size);
 }

@@ -6,25 +6,25 @@
 /*   By: kboucaud <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/07 15:55:55 by kboucaud          #+#    #+#             */
-/*   Updated: 2017/03/07 15:55:57 by kboucaud         ###   ########.fr       */
+/*   Updated: 2017/03/08 18:52:00 by kboucaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int 	my_key_func(int key, void *param)
+int		my_key_func(int key, void *param)
 {
 	if (key == 53)
 		exit(1);
 	return (0);
 }
 
-int		open_new()
+int		open_new(void)
 {
 	t_data		mlx_info;
-	int 		x;
-	int 		y;
-	int 		color;
+	int			x;
+	int			y;
+	int			color;
 
 	x = 200;
 	y = 200;

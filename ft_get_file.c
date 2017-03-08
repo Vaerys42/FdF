@@ -26,7 +26,7 @@ char		**ft_get_file(char *path)
 	return (file);
 }
 
-t_coord		*ft_to_struct(char	**file)
+t_coord		*ft_to_struct(char **file)
 {
 	t_coord		*coo;
 	char		**line;

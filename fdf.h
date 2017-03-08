@@ -6,12 +6,12 @@
 /*   By: kboucaud <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/03 14:35:21 by kboucaud          #+#    #+#             */
-/*   Updated: 2017/03/03 14:35:22 by kboucaud         ###   ########.fr       */
+/*   Updated: 2017/03/08 18:55:07 by kboucaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FDF_F
-# define FDF_F
+#ifndef FDF_H
+# define FDF_H
 
 # include <unistd.h>
 # include <stdlib.h>
@@ -30,7 +30,7 @@
 # define WHITE 0x00FFFFFF
 # define BLACK 0x00000000
 
-typedef struct 		s_coord
+typedef struct		s_coord
 {
 	int				x;
 	int				y;
@@ -38,13 +38,14 @@ typedef struct 		s_coord
 	struct s_coord	*next;
 }					t_coord;
 
-typedef struct 	s_data
+typedef struct		s_data
 {
 	void		*mlx;
 	void		*mlx_window;
-}				t_data;
+}					t_data;
 
 char		**ft_get_file(char *path);
 int			open_new();
+t_coord		ft_graph_size(t_coord *coo);
 
 #endif
