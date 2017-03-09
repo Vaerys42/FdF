@@ -30,14 +30,6 @@
 # define WHITE 0x00FFFFFF
 # define BLACK 0x00000000
 
-typedef struct		s_coord
-{
-	int				x;
-	int				y;
-	int				z;
-	struct s_coord	*next;
-}					t_coord;
-
 typedef struct		s_data
 {
 	void		*mlx;
@@ -46,6 +38,7 @@ typedef struct		s_data
 
 char		**ft_get_file(char *path);
 int			open_new();
-t_coord		ft_graph_size(t_coord *coo);
+int			**ft_coo_tab(char **tab, int length, int height);
+void		ft_draw_seg(int xa, int xb, int ya, int yb, t_data data);
 
 #endif

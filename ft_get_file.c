@@ -19,6 +19,7 @@ char		**ft_get_file(char *path)
 	int		i;
 
 	i = 0;
+	file = NULL;
 	fd = open(path, O_RDONLY);
 	while (get_next_line(fd, file[i]) > 0)
 		i++;
@@ -26,29 +27,46 @@ char		**ft_get_file(char *path)
 	return (file);
 }
 
-t_coord		*ft_to_struct(char **file)
+int			**ft_coo_tab(char **tab, int length, int height)
 {
-	t_coord		*coo;
-	char		**line;
-	int			x;
-	int			y;
+	int		**coo_tab;
+	char	**split;
+	int		i;
+	int		j;
 
-	y = 0;
-	x = 0;
-	while (file[y] != 0)
+	i = 0;
+	coo_tab = (int**)malloc(sizeof(int) * (height - 1));
+	while (tab[i] != 0)
 	{
-		x = 0;
-		line = ft_strsplit(file[y], ' ');
-		while (line[x++] != NULL)
+		j = 0;
+		split = ft_strsplit(tab[i], ' ');
+		coo_tab[i] = (int*)malloc(sizeof(int) * (length));
+		while (split[j] != 0)
 		{
-			coo->x = x;
-			coo->y = y;
-			coo->z = ft_atoi(line[x]);
-			x++;
-			coo = coo->next;
+			coo_tab[i][j] = ft_atoi(split[j]);
+			j++;
 		}
-		y++;
+		coo_tab[i][j] = -1;
+		free(split);
 	}
-	coo->next = NULL;
+	coo_tab[i - 1][j] = -2;
+	return (coo_tab);
+}
+
+int			**ft_get_coo(char *path)
+{
+	char	**file;
+	int		**coo;
+	int		length;
+	int		height;
+
+	length = 0;
+	height = 0;
+	file = ft_get_file(path);
+	while (file[height][length] != 0)
+		length++;
+	while (file[height] != 0)
+		height++;
+	coo = ft_coo_tab(file, length, height);
 	return (coo);
 }

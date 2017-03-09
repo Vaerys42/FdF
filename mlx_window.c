@@ -21,7 +21,7 @@ int		my_key_func(int key, void *param)
 
 int		open_new(void)
 {
-	t_data		mlx_info;
+	t_data		data;
 	int			x;
 	int			y;
 	int			color;
@@ -29,17 +29,13 @@ int		open_new(void)
 	x = 200;
 	y = 200;
 	color = BLUE;
-	if ((mlx_info.mlx = mlx_init()) == NULL)
+	if ((data.mlx = mlx_init()) == NULL)
 		return (-1);
-	if ((mlx_info.mlx_window = mlx_new_window(mlx_info.mlx, 800, 600, "Fdf")) == NULL)
+	if ((data.mlx_window = mlx_new_window(data.mlx, 800, 600, "Fdf")) == NULL)
 		return (-2);
 	while (x++ < 300 && y-- > 0)
-	{
-		mlx_pixel_put(mlx_info.mlx, mlx_info.mlx_window, x, y, color);
-		if (x == 250)
-			color = GREEN;
-	}
-	mlx_key_hook(mlx_info.mlx_window, my_key_func, 0);
-	mlx_loop(mlx_info.mlx);
+	ft_draw_seg(100, 200, 100, 100, data);
+	mlx_key_hook(data.mlx_window, my_key_func, 0);
+	mlx_loop(data.mlx);
 	return (0);
 }
