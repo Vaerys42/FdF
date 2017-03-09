@@ -34,7 +34,7 @@ int		open_new(void)
 	if ((data.mlx_window = mlx_new_window(data.mlx, 800, 600, "Fdf")) == NULL)
 		return (-2);
 	while (x++ < 300 && y-- > 0)
-	ft_draw_seg(100, 200, 100, 100, data);
+	ft_draw_seg(25, 50, 25, 50, data);
 	mlx_key_hook(data.mlx_window, my_key_func, 0);
 	mlx_loop(data.mlx);
 	return (0);
