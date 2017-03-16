@@ -15,16 +15,20 @@
 int			main(int argc, char **argv)
 {
 	int		**file;
-	int		x;
-	int		y;
+	int		tab[5][6] = 
+			{
+				{0,0,0,0,0,-1},
+				{0,0,0,0,0,-1},
+				{0,0,0,0,0,-1},
+				{0,0,0,0,0,-1},
+				{0,0,0,0,0,-2},
+			};
 
-	x = 200;
-	y = 200;
 	if (argc != 2)
 	{
 		write(1, "Usage : ./fdf <filename> [ case_size z_size ]\n", 46);
 		return (0);
 	}
 	//file = ft_get_coo(argv[1]);
-	open_new();
+	open_new(tab);
 }

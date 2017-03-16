@@ -37,8 +37,12 @@ typedef struct		s_data
 }					t_data;
 
 char		**ft_get_file(char *path);
-int			open_new();
+int			open_new(int coo[5][6]);
 int			**ft_coo_tab(char **tab, int length, int height);
 void		ft_draw_seg(int xa, int xb, int ya, int yb, t_data data);
+void		ft_draw_x(int coo[5][6], t_data data);
+int 		y_iso(int y, int x);
+int 		x_iso(int x, int y);
+void		ft_draw_y(int coo[5][6], t_data data);
 
 #endif

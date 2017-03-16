@@ -14,20 +14,28 @@
 
 void		ft_draw_seg(int xa, int xb, int ya, int yb, t_data data)
 {
+	int		dx;
+	int		dy;
+	int		cumul;
 	int		x;
 	int		y;
-	double	a;
-	double	b;
 
-	if (xa >= xb)
-		return ;
 	x = xa;
-	a = (double)((yb - ya)/(xb - xa));
-	b = yb - (a * xa);
+	y = ya;
+	dx = xb - xa;
+	dy = yb - ya;
+	mlx_pixel_put(data.mlx, data.mlx_window, x, y, WHITE);
+	cumul = dx / 2;
+	x = xa + 1;
 	while (x <= xb)
 	{
-		y = (int)((a * x) + b);
-		mlx_pixel_put(data.mlx, data.mlx_window, x, y, GREEN);
+		cumul = cumul + dy;
+		if (cumul >= dx)
+		{
+			cumul = cumul - dx;
+			y++;
+		}
+		mlx_pixel_put(data.mlx, data.mlx_window, x, y, WHITE);
 		x++;
 	}
 }
