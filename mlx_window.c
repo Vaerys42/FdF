@@ -27,8 +27,9 @@ int		open_new(int coo[5][6])
 		return (-1);
 	if ((data.mlx_window = mlx_new_window(data.mlx, 800, 600, "Fdf")) == NULL)
 		return (-2);
-	ft_draw_y(coo, data);
-	ft_draw_x(coo, data);
+	//ft_draw_y(coo, data);
+	//ft_draw_x(coo, data);
+	ft_draw_seg(50, 100, 100, 50, data);
 	mlx_key_hook(data.mlx_window, my_key_func, 0);
 	mlx_loop(data.mlx);
 	return (0);
@@ -55,8 +56,7 @@ void		ft_draw_x(int coo[5][6], t_data data)
 	}
 }
 
-void		ft_draw_y(int coo[5][6], t_data data)
-{
+/*drawy
 	int 	x;
 	int 	y;
 	int 	nb_line;
@@ -71,17 +71,38 @@ void		ft_draw_y(int coo[5][6], t_data data)
 		return ;
 	x = 0;
 	y = 0;
-	while (coo[y][x] != -2 && coo[y][x] != -1)
+	while (coo[y][x] != -1 && coo[y][x + 1] != -2)
 	{
-		y = 1;
-		while (y <= nb_line)
+		y = 0;
+		while (y < nb_line)
 		{
-			if (coo[y][x] == 0 && coo[y - 1][x] == 0)
-				ft_draw_seg(x_iso(x, y), x_iso(x, y - 1), y_iso(y, x), y_iso(y - 1, x), data);
+			if (coo[y][x] == 0 && coo[y][x + 1] == 0)
+				ft_draw_seg(x_iso(y, x), x_iso(y + 1, x), y_iso(x, y), y_iso(x, y + 1), data);
 			y++;
 		}
-		if (coo[y][x] != -1 && coo[y][x] != -2)
+		if (coo[y][x] != -1)
 			x++;
+	}
+*/
+
+void		ft_draw_y(int coo[5][6], t_data data)
+{
+	int 	x;
+	int 	y;
+
+	x = 0;
+	y = 0;
+	while (coo[y + 1][x] != -2)
+	{
+		x = 0;
+		while (coo[y][x] != -1)
+		{
+			if (coo[y][x] == 0 && coo[y + 1][x] == 0)
+				ft_draw_seg(x_iso(x, y + 1), x_iso(x, y), y_iso(y + 1, x), y_iso(y, x), data);
+			x++;
+		}
+		if (coo[y + 1][x] != -2)
+			y++;
 	}
 }
 

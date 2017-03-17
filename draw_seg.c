@@ -39,4 +39,3 @@ void		ft_draw_seg(int xa, int xb, int ya, int yb, t_data data)
 		x++;
 	}
 }
-
