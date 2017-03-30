@@ -36,6 +36,12 @@ typedef struct		s_data
 	void		*mlx_window;
 }					t_data;
 
+typedef	struct 		s_coo
+{
+	int			x;
+	int			y;
+}					t_coo;
+
 char		**ft_get_file(char *path);
 int			open_new(int coo[5][6]);
 int			**ft_coo_tab(char **tab, int length, int height);
@@ -44,5 +50,7 @@ void		ft_draw_x(int coo[5][6], t_data data);
 int 		y_iso(int y, int x);
 int 		x_iso(int x, int y);
 void		ft_draw_y(int coo[5][6], t_data data);
+void		dx_sup(t_data data, t_coo d, t_coo incr, t_coo a);
+void		dy_sup(t_data data, t_coo d, t_coo incr, t_coo a);
 
 #endif
