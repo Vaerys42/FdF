@@ -12,7 +12,7 @@
 
 #include "fdf.h"
 
-void		ft_draw_seg(int xa, int xb, int ya, int yb, t_data data)
+void		ft_draw_seg(double xa, double xb, double ya, double yb, t_data data)
 {
 	t_coo	d;
 	t_coo	incr;
@@ -22,8 +22,8 @@ void		ft_draw_seg(int xa, int xb, int ya, int yb, t_data data)
 	incr.y = -1;
 	a.x = xa;
 	a.y = ya;
-	d.x = abs(xb - xa);
-	d.y = abs(yb - ya);
+	d.x = fabs(xb - xa);
+	d.y = fabs(yb - ya);
 	if (xa < xb)
 		incr.x = 1;
 	if (ya < yb)
@@ -38,10 +38,10 @@ void		ft_draw_seg(int xa, int xb, int ya, int yb, t_data data)
 
 void		dx_sup(t_data data, t_coo d, t_coo incr, t_coo a)
 {
-	int		i;
-	int		erreur;
-	int		x;
-	int		y;
+	double		i;
+	double		erreur;
+	double		x;
+	double		y;
 
 	i = 0;
 	x = a.x;
@@ -63,10 +63,10 @@ void		dx_sup(t_data data, t_coo d, t_coo incr, t_coo a)
 
 void		dy_sup(t_data data, t_coo d, t_coo incr, t_coo a)
 {
-	int		i;
-	int		erreur;
-	int		x;
-	int		y;
+	double		i;
+	double		erreur;
+	double		x;
+	double		y;
 
 	i = 0;
 	x = a.x;
