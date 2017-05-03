@@ -95,11 +95,11 @@ void		ft_draw_y(int coo[5][6], t_data data)
 			if (coo[y][x] == coo[y + 1][x] && coo[y][x] == 0)
 				ft_draw_seg(x_iso(x, y), x_iso(x, y + 1), y_iso(x, y), y_iso(x, y + 1), data);
 			if (coo[y][x] == coo[y + 1][x] && coo[y][x] != 0)
-				ft_draw_seg(x_iso(x - smll(coo[y][x]), y), x_iso(x - smll(coo[y + 1][x]), y + 1), y_iso_up(x - smll(coo[y][x]), y), y_iso_up(x - smll(coo[y + 1][x]), y + 1), data);
+				ft_draw_seg(x_iso(x, y - smll(coo[y][x])), x_iso(x, y + 1 - smll(coo[y + 1][x])), y_iso_up(x, y - smll(coo[y][x])), y_iso_up(x, y + 1 - smll(coo[y + 1][x])), data);
 			if (coo[y][x] < coo[y + 1][x])
-				ft_draw_seg(x_iso(x - smll(coo[y][x]), y), x_iso(x - smll(coo[y + 1][x]), y + 1), y_iso(x - smll(coo[y][x]), y), y_iso_up(x - smll(coo[y + 1][x]), y + 1), data);
+				ft_draw_seg(x_iso(x, y - smll(coo[y][x])), x_iso(x, y + 1 - smll(coo[y + 1][x])), y_iso(x, y - smll(coo[y][x])), y_iso_up(x, y + 1 - smll(coo[y + 1][x])), data);
 			if (coo[y][x] > coo[y + 1][x])
-				ft_draw_seg(x_iso(x - smll(coo[y][x]), y), x_iso(x - smll(coo[y + 1][x]), y + 1), y_iso_up(x - smll(coo[y][x]), y), y_iso(x - smll(coo[y + 1][x]), y + 1), data);
+				ft_draw_seg(x_iso(x, y - smll(coo[y][x])), x_iso(x, y + 1 - smll(coo[y + 1][x])), y_iso_up(x, y - smll(coo[y][x])), y_iso(x, y + 1 - smll(coo[y + 1][x])), data);
 			x++;
 		}
 		if (coo[y + 1][x] != -2)
@@ -111,11 +111,11 @@ void		ft_draw_y(int coo[5][6], t_data data)
 		if (coo[y][x] == coo[y + 1][x] && coo[y][x] == 0)
 			ft_draw_seg(x_iso(x, y), x_iso(x, y + 1), y_iso(x, y), y_iso(x, y + 1), data);
 		if (coo[y][x] == coo[y + 1][x] && coo[y][x] != 0)
-			ft_draw_seg(x_iso(x - smll(coo[y][x]), y), x_iso(x - smll(coo[y + 1][x]), y + 1), y_iso_up(x - smll(coo[y][x]), y), y_iso_up(x - smll(coo[y + 1][x]), y + 1), data);
+			ft_draw_seg(x_iso(x, y - smll(coo[y][x])), x_iso(x, y + 1 - smll(coo[y + 1][x])), y_iso_up(x, y - smll(coo[y][x])), y_iso_up(x, y + 1 - smll(coo[y + 1][x])), data);
 		if (coo[y][x] < coo[y + 1][x])
-			ft_draw_seg(x_iso(x - smll(coo[y][x]), y), x_iso(x - smll(coo[y + 1][x]), y + 1), y_iso(x - smll(coo[y][x]), y), y_iso_up(x - smll(coo[y + 1][x]), y + 1), data);
+			ft_draw_seg(x_iso(x, y - smll(coo[y][x])), x_iso(x, y + 1 - smll(coo[y + 1][x])), y_iso(x, y - smll(coo[y][x])), y_iso_up(x, y + 1 - smll(coo[y + 1][x])), data);
 		if (coo[y][x] > coo[y + 1][x])
-			ft_draw_seg(x_iso(x - smll(coo[y][x]), y), x_iso(x - smll(coo[y + 1][x]), y + 1), y_iso_up(x - smll(coo[y][x]), y), y_iso(x - smll(coo[y + 1][x]), y + 1), data);
+			ft_draw_seg(x_iso(x, y - smll(coo[y][x])), x_iso(x, y + 1 - smll(coo[y + 1][x])), y_iso_up(x, y - smll(coo[y][x])), y_iso(x, y + 1 - smll(coo[y + 1][x])), data);
 		x++;
 	}
 }
@@ -127,7 +127,7 @@ double		x_iso(double x, double y)
 
 double		y_iso_up(double x, double y)
 {
-	return ((x + y + 4) * 15);
+	return ((x + y + 3) * 15);
 }
 
 double		y_iso(double x, double y)
