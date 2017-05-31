@@ -32,7 +32,8 @@ char		**read_file(char *path)
 		i++;
 	if (ret == -1)
 		ft_error();
-	line = (char**)malloc(sizeof(char*) * (i + 1));
+	if ((line = (char**)malloc(sizeof(char*) * (i + 1))) == NULL)
+		ft_error();
 	close(fd);
 	i = 0;
 	fd = open(path, O_RDONLY);

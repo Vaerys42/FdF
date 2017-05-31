@@ -19,20 +19,19 @@ int			my_key_func(int key, void *param)
 	return (0);
 }
 
-int			open_new(t_file *file)
+void		open_new(t_file *file)
 {
 	t_data		data;
 
 	if ((data.mlx = mlx_init()) == NULL)
-		return (-1);
+		ft_error();
 	if ((data.mlx_window = mlx_new_window(data.mlx, 1000, 800, "Fdf")) == NULL)
-		return (-2);
+		ft_error();
 	file->data = data;
-	//ft_draw_y(file);
-	ft_draw_x(coo, data);
+	ft_draw_y(file);
+	ft_draw_x(file);
 	mlx_key_hook(data.mlx_window, my_key_func, 0);
 	mlx_loop(data.mlx);
-	return (0);
 }
 
 double		smll(int x)
@@ -40,16 +39,61 @@ double		smll(int x)
 	return (x * 0.2);
 }
 
+t_seg		ft_line_x_under_1(t_coo co, int val1, int val2)
+{
+	t_seg		send;
+
+	send.data = co.data;
+	if (val1 == val2 && val1 == 0)
+	{
+		send.xa = x_iso(co.x, co.y);
+		send.xb = x_iso(co.x + 1, co.y);
+		send.ya = y_iso(co.x, co.y);
+		send.yb = y_iso(co.x + 1, co.y);
+		return (send);
+	}
+	if (val1 < val2 && val1 == 0)
+	{
+		send.xa = x_iso(co.x, co.y - smll(val1));
+		send.xb = x_iso(co.x + 1, co.y - smll(val2));
+		send.ya = y_iso(co.x, co.y - smll(val1));
+		send.yb = y_iso_up(co.x + 1, co.y - smll(val2));
+		return (send);
+	}
+	return (NULL);
+}
+
+t_seg		ft_line_x_under_2(t_coo co, int val1, int val2)
+{
+	t_seg		send;
+
+	send.data = co.data;
+	if (val1 > val2 && val2 == 0)
+	{
+		send.xa = x_iso(co.x, co.y - smll(val1));
+		send.xb = x_iso(co.x + 1, co.y - smll(val2));
+		send.ya = y_iso_up(co.x, co.y - smll(val1));
+		send.yb = y_iso(co.x + 1, co.y - smll(val2));
+		return (send);
+	}
+	else
+	{
+		send.xa = x_iso(co.x, co.y - smll(val1));
+		send.xb = x_iso(co.x + 1, co.y - smll(val2));
+		send.ya = y_iso_up(co.x, co.y - smll(val1));
+		send.yb = y_iso_up(co.x + 1, co.y - smll(val2));
+	}
+	return (send);
+}
+
 void		ft_line_x(t_coo co, int val1, int val2)
 {
-	if (val1 == val2 && val1 == 0)
-		ft_draw_seg(x_iso(co.x, co.y), x_iso(co.x + 1, co.y), y_iso(co.x, co.y), y_iso(co.x + 1, co.y), data);
-	else if (val1 < val2 && val1 == 0)
-		ft_draw_seg(x_iso(co.x, co.y - smll(val1)), x_iso(co.x + 1, co.y - smll(val2)), y_iso(co.x, co.y - smll(val1)), y_iso_up(co.x + 1, co.y - smll(val2)), data);
-	else if (val1 > val2 && val2 == 0)
-		ft_draw_seg(x_iso(co.x, co.y - smll(val1)), x_iso(co.x + 1, co.y - smll(val2)), y_iso_up(co.x, co.y - smll(val1)), y_iso(co.x + 1, co.y - smll(val2)), data);
+
+	if (ft_line_x_under_1(t_coo co, int val1, int val2) != NULL)
+		send = ft_line_x_under_1(t_coo co, int val1, int val2);
 	else
-		ft_draw_seg(x_iso(co.x, co.y - smll(val1)), x_iso(co.x + 1, co.y - smll(val2)), y_iso_up(co.x, co.y - smll(val1)), y_iso_up(co.x + 1, co.y - smll(val2)), data);
+		send = ft_line_x_under_2(t_coo co, int val1, int val2);
+	ft_draw_seg(send);
 	return ;
 }
 
@@ -116,21 +160,7 @@ void		ft_draw_x(int **coo, t_data data)
 {
 	t_coo_int	co;
 
-	co.x = 0;
-	co.y = 0;
-	while (coo[co.y][co.x] != -2)
-	{
-		while (coo[co.y][co.x] != -1 && coo[co.y][co.x] != -2)
-		{
-			//ft_line_x(co, coo[co.y][co.x], coo[co.y][co.x + 1], data);
-			co.x++;
-		}
-		if (coo[co.y][co.x] == -1)
-		{
-			co.x = 0;
-			co.y++;
-		}
-	}
+
 }
 
 void		ft_draw_y(t_file *file)
@@ -140,7 +170,7 @@ void		ft_draw_y(t_file *file)
 
 	i = 0;
 	co.data = file->data;
-	while (file->current->next != NULL)
+	while (file->current != NULL)
 	{
 		while (file->current->y == i && file->current != NULL)
 		{

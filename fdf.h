@@ -69,9 +69,10 @@ typedef	struct		s_coo
 	double			y;
 	t_data			data;
 }					t_coo;
-
-int					open_new(t_file *coo);
+	
+void				open_new(t_file *coo);
 t_file				*ft_get_coord(char *path);
+void				ft_error(void);
 
 void				ft_draw_seg(double xa, double xb, double ya,
 					double yb, t_data data);
