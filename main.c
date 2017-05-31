@@ -12,23 +12,19 @@
 
 #include "fdf.h"
 
-int			main(int argc, char **argv)
+int			main(void)
 {
-	int		**file;
-	int		tab[5][6] =
-			{
-				{0,0,0,0,0,-1},
-				{0,0,0,0,0,-1},
-				{0,2,4,2,0,-1},
-				{0,0,0,0,0,-1},
-				{0,0,0,0,0,-2},
-			};
+	t_file	*file;
+	int		i;
 
-	if (argc != 2)
+	i = 0;
+	/*if (argc != 2)
 	{
 		write(1, "Usage : ./fdf <filename> [ case_size z_size ]\n", 46);
 		return (0);
-	}
-	//file = ft_get_coo(argv[1]);
-	open_new(tab);
+	}*/
+	file = ft_get_coord("test");
+	file->current = file->first;
+	//open_new(file);
+	return (0);
 }

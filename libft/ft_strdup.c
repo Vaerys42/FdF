@@ -17,22 +17,13 @@
 char	*ft_strdup(const char *src)
 {
 	char	*new;
-	int		len;
 	int		i;
 
-	i = 0;
-	len = ft_strlen(src);
-	new = (char*)malloc(sizeof(char) * (len + 1));
-	if (new == NULL)
-	{
-		write(2, "ENOMEM", 6);
+	i = -1;
+	if ((new = (char*)malloc(sizeof(char) * (ft_strlen(src) + 1))) == NULL)
 		return (NULL);
-	}
-	while (src[i] != '\0')
-	{
+	while (src[++i] != '\0')
 		new[i] = src[i];
-		i++;
-	}
 	new[i] = '\0';
 	return (new);
 }

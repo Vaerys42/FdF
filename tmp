@@ -1,155 +1,53 @@
-	while (coo[y + 1][x] != -2)
+void		ft_draw_y(int **coo, t_data data)
+{
+	t_coo_int	co;
+
+	co.x = 0;
+	co.y = 0;
+	while (coo[co.y + 1][co.x] != -2)
 	{
-		x = 0;
-		while (coo[y][x] != -1)
+		while (coo[co.y][co.x] != -1 && coo[co.y][co.x])
 		{
-			if (coo[y][x] == coo[y + 1][x] && coo[y][x] == 0)
-				ft_draw_seg(x_iso(x, y + 1), x_iso(x, y), y_iso(y + 1, x), y_iso(y, x), data);
-			else if (coo[y][x] == coo[y + 1][x] && coo[y][x] != 0)
-				ft_draw_seg(x_iso(x - coo[y + 1][x] * 0.1, y + 1), x_iso(x - coo[y][x] * 0.1, y), y_iso_up(y + 1, x - coo[y + 1][x] * 0.1), y_iso_up(y, x - coo[y][x] * 0.1), data);
-			else if (coo[y][x] > coo[y + 1][x])
-				ft_draw_seg(x_iso(x - coo[y + 1][x] * 0.1, y + 1), x_iso(x - coo[y][x] * 0.1, y), y_iso(y + 1, x - coo[y + 1][x] * 0.1), y_iso_up(y, x - coo[y][x] * 0.1), data);
-			else if (coo[y][x] < coo[y + 1][x])
-				ft_draw_seg(x_iso(x - coo[y + 1][x] * 0.1, y + 1), x_iso(x - coo[y][x] * 0.1, y), y_iso_up(y + 1, x - coo[y + 1][x] * 0.1), y_iso(y, x - coo[y][x] * 0.1), data);
-			x++;
+			ft_line_y(co, coo[co.y][co.x], coo[co.y + 1][co.x], data);
+			co.x++;
 		}
-		if (coo[y + 1][x] != -2)
-			y++;
-	}
-	x = 0;
-	while (coo[y][x] != -1)
-	{
-		if (coo[y][x] == coo[y + 1][x] && coo[y][x] == 0)
-			ft_draw_seg(x_iso(x, y + 1), x_iso(x, y), y_iso(y + 1, x), y_iso(y, x), data);
-		else if (coo[y][x] == coo[y + 1][x] && coo[y][x] != 0)
-			ft_draw_seg(x_iso(x - coo[y + 1][x] * 0.1, y + 1), x_iso(x - coo[y][x] * 0.1, y), y_iso_up(y + 1, x - coo[y + 1][x] * 0.1), y_iso_up(y, x - coo[y][x] * 0.1), data);
-		else if (coo[y][x] > coo[y + 1][x])
-			ft_draw_seg(x_iso(x - coo[y + 1][x] * 0.1, y + 1), x_iso(x - coo[y][x] * 0.1, y), y_iso(y + 1, x - coo[y + 1][x] * 0.1), y_iso_up(y, x - coo[y][x] * 0.1), data);
-		else if (coo[y][x] < coo[y + 1][x])
-			ft_draw_seg(x_iso(x - coo[y + 1][x] * 0.1, y + 1), x_iso(x - coo[y][x] * 0.1, y), y_iso_up(y + 1, x - coo[y + 1][x] * 0.1), y_iso(y, x - coo[y][x] * 0.1), data);
-		x++;
-	}
-
-
-
-
-
-
-
-
-
-
-
-
-		while (coo[y + 1][x] != -2)
-	{
-		x = 0;
-		while (coo[y][x] != -1)
+		if (coo[co.y + 1][co.x] != -2)
 		{
-			if (coo[y][x] == coo[y + 1][x] && coo[y][x] == 0)
-				ft_draw_seg(x_iso(x, y + 1), x_iso(x, y), y_iso(y + 1, x), y_iso(y, x), data);
-			else if (coo[y][x] == coo[y + 1][x] && coo[y][x] != 0)
-				ft_draw_seg(x_iso(x, y + 1), x_iso(x, y), y_iso_up(y + 1, x), y_iso_up(y, x), data);
-			else if (coo[y][x] > coo[y + 1][x])
-				ft_draw_seg(x_iso(x, y + 1), x_iso(x, y), y_iso(y + 1, x), y_iso_up(y, x), data);
-			else if (coo[y][x] < coo[y + 1][x])
-				ft_draw_seg(x_iso(x, y + 1), x_iso(x, y), y_iso_up(y + 1, x), y_iso(y, x), data);
-			x++;
+			co.y++;
+			co.x = 0;
 		}
-		if (coo[y + 1][x] != -2)
-			y++;
 	}
-	x = 0;
-	while (coo[y][x] != -1)
+	co.x = 0;
+	while (coo[co.y][co.x] != -1)
 	{
-		if (coo[y][x] == coo[y + 1][x] && coo[y][x] == 0)
-			ft_draw_seg(x_iso(x, y + 1), x_iso(x, y), y_iso(y + 1, x), y_iso(y, x), data);
-		else if (coo[y][x] == coo[y + 1][x] && coo[y][x] != 0)
-			ft_draw_seg(x_iso(x, y + 1), x_iso(x, y), y_iso_up(y + 1, x), y_iso_up(y, x), data);
-		else if (coo[y][x] > coo[y + 1][x])
-			ft_draw_seg(x_iso(x, y + 1), x_iso(x, y), y_iso(y + 1, x), y_iso_up(y, x), data);
-		else if (coo[y][x] < coo[y + 1][x])
-			ft_draw_seg(x_iso(x, y + 1), x_iso(x, y), y_iso_up(y + 1, x), y_iso(y, x), data);
-		x++;
+		ft_line_y(co, coo[co.y][co.x], coo[co.y + 1][co.x], data);
+		co.x++;
 	}
+}
 
+void		ft_draw_x(int **coo, t_data data)
+{
+	t_coo_int	co;
 
-
-
-
-
-
-
-
-
-
-		while (coo[y][x + 1] != -2)
+	co.x = 0;
+	co.y = 0;
+	while (coo[co.y][co.x + 1] != -2)
 	{
-		x = 0;
-		while (coo[y][x + 1] != -1)
+		while (coo[co.y][co.x + 1] != -1 && coo[co.y][co.x] != -2)
 		{
-			if (coo[y][x] == coo[y][x + 1] && coo[y][x] == 0)
-				ft_draw_seg(x_iso(x, y), x_iso(x + 1, y), y_iso(y, x), y_iso(y, x + 1), data);
-			else if (coo[y][x] == coo[y][x + 1] && coo[y][x] != 0)
-				ft_draw_seg(x_iso(x, y - coo[y][x] * 0.1), x_iso(x + 1, y - coo[y][x + 1] * 0.1), y_iso_up(y - coo[y][x] * 0.1, x), y_iso_up(y - coo[y][x + 1] * 0.1, x + 1), data);
-			else if (coo[y][x] < coo[y][x + 1])
-				ft_draw_seg(x_iso(x, y - coo[y][x] * 0.1), x_iso(x + 1, y - coo[y][x + 1] * 0.1), y_iso(y - coo[y][x] * 0.1, x), y_iso_up(y - coo[y][x + 1] * 0.1, x + 1), data);
-			else if (coo[y][x] > coo[y][x + 1])
-				ft_draw_seg(x_iso(x, y - coo[y][x] * 0.1), x_iso(x + 1, y - coo[y][x + 1] * 0.1), y_iso_up(y - coo[y][x] * 0.1, x), y_iso(y - coo[y][x + 1] * 0.1, x + 1), data);
-			x++;
+			ft_line_x(co, coo[co.y][co.x], coo[co.y][co.x + 1], data);
+			co.x = co.x + 1;
 		}
-		if (coo[y][x] != -2)
-			y++;
-	}
-	x = 0;
-	while (coo[y][x + 1] != -2)
-	{
-		if (coo[y][x] == coo[y][x + 1] && coo[y][x] == 0)
-			ft_draw_seg(x_iso(x, y), x_iso(x + 1, y), y_iso(y, x), y_iso(y, x + 1), data);
-		else if (coo[y][x] == coo[y][x + 1] && coo[y][x] != 0)
-			ft_draw_seg(x_iso(x, y - coo[y][x] * 0.1), x_iso(x + 1, y - coo[y][x + 1] * 0.1), y_iso_up(y - coo[y][x] * 0.1, x), y_iso_up(y - coo[y][x + 1] * 0.1, x + 1), data);
-		else if (coo[y][x] < coo[y][x + 1])
-			ft_draw_seg(x_iso(x, y - coo[y][x] * 0.1), x_iso(x + 1, y - coo[y][x + 1] * 0.1), y_iso(y - coo[y][x] * 0.1, x), y_iso_up(y - coo[y][x + 1] * 0.1, x + 1), data);
-		else if (coo[y][x] > coo[y][x + 1])
-			ft_draw_seg(x_iso(x, y - coo[y][x] * 0.1), x_iso(x + 1, y - coo[y][x + 1] * 0.1), y_iso_up(y - coo[y][x] * 0.1, x), y_iso(y - coo[y][x + 1] * 0.1, x + 1), data);
-		x++;
-	}
-
-
-
-
-
-
-
-
-		while (coo[y][x + 1] != -2)
-	{
-		x = 0;
-		while (coo[y][x + 1] != -1)
+		if (coo[co.y][co.x] != -2)
 		{
-			if (coo[y][x] == coo[y][x + 1] && coo[y][x] == 0)
-				ft_draw_seg(x_iso(x, y), x_iso(x + 1, y), y_iso(y, x), y_iso(y, x + 1), data);
-			else if (coo[y][x] == coo[y][x + 1] && coo[y][x] != 0)
-				ft_draw_seg(x_iso(x, y), x_iso(x + 1, y), y_iso_up(y, x), y_iso_up(y, x + 1), data);
-			else if (coo[y][x] < coo[y][x + 1])
-				ft_draw_seg(x_iso(x, y), x_iso(x + 1, y), y_iso(y, x), y_iso_up(y, x + 1), data);
-			else if (coo[y][x] > coo[y][x + 1])
-				ft_draw_seg(x_iso(x, y), x_iso(x + 1, y), y_iso_up(y, x), y_iso(y, x + 1), data);
-			x++;
+			co.y = co.y + 1;
+			co.x = 0;
 		}
-		if (coo[y][x] != -2)
-			y++;
 	}
-	x = 0;
-	while (coo[y][x + 1] != -2)
+	co.x = 0;
+	while (coo[co.y][co.x + 1] != -2)
 	{
-		if (coo[y][x] == coo[y][x + 1] && coo[y][x] == 0)
-			ft_draw_seg(x_iso(x, y), x_iso(x + 1, y), y_iso(y, x), y_iso(y, x + 1), data);
-		else if (coo[y][x] == coo[y][x + 1] && coo[y][x] != 0)
-			ft_draw_seg(x_iso(x, y), x_iso(x + 1, y), y_iso_up(y, x), y_iso_up(y, x + 1), data);
-		else if (coo[y][x] < coo[y][x + 1])
-			ft_draw_seg(x_iso(x, y), x_iso(x + 1, y), y_iso(y, x), y_iso_up(y, x + 1), data);
-		else if (coo[y][x] > coo[y][x + 1])
-			ft_draw_seg(x_iso(x, y), x_iso(x + 1, y), y_iso_up(y, x), y_iso(y, x + 1), data);
-		x++;
+		ft_line_x(co, coo[co.y][co.x], coo[co.y][co.x + 1], data);
+		co.x = co.x + 1;
 	}
+}

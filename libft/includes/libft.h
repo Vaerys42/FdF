@@ -17,6 +17,12 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
+# include <fcntl.h>
+# include <stdio.h>
+
+
+# define BUFF_SIZE 1
+
 
 void			*ft_memset(void *s, int c, size_t n);
 void			ft_bzero(void *s, size_t n);
@@ -76,7 +82,8 @@ int				ft_square(int i);
 int				ft_sqrt(int i);
 int				ft_recursive_factorial(int nb);
 char			*ft_strndup(char *str, int size, int start);
-char			*ft_strnjoin(char const *s1, char const *s2, const int size);
+char			*ft_strnjoin(char *s1, char *s2, const int size);
+char			*ft_strjoin_free(char *s1, char *s2, int mode);
 
 typedef struct	s_list
 {
@@ -91,5 +98,7 @@ void			ft_lstdelone(t_list **alst, void (*del)(void*, size_t));
 void			ft_lstdel(t_list **alst, void (*del)(void*, size_t));
 void			ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 t_list			*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
+
+int				get_next_line(const int fd, char **line);
 
 #endif
