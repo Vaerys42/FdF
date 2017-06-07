@@ -60,7 +60,8 @@ t_seg		ft_line_x_under_1(t_coo co, int val1, int val2)
 		send.yb = y_iso_up(co.x + 1, co.y - smll(val2));
 		return (send);
 	}
-	return (NULL);
+	send.xa = -1;
+	return (send);
 }
 
 t_seg		ft_line_x_under_2(t_coo co, int val1, int val2)
@@ -88,11 +89,16 @@ t_seg		ft_line_x_under_2(t_coo co, int val1, int val2)
 
 void		ft_line_x(t_coo co, int val1, int val2)
 {
+	t_seg	send;
 
-	if (ft_line_x_under_1(t_coo co, int val1, int val2) != NULL)
-		send = ft_line_x_under_1(t_coo co, int val1, int val2);
+	send = ft_line_x_under_1(co, val1, val2);
+	if (send.xa != -1)
+	{
+		ft_draw_seg(send);
+		return ;
+	}
 	else
-		send = ft_line_x_under_2(t_coo co, int val1, int val2);
+		send = ft_line_x_under_2(co, val1, val2);
 	ft_draw_seg(send);
 	return ;
 }
@@ -118,7 +124,8 @@ t_seg		ft_line_y_under_1(t_coo co, int val1, int val2)
 		send.yb = y_iso_up(co.x, co.y + 1 - smll(val2));
 		return (send);
 	}
-	return (NULL);
+	send.xa = -1;
+	return (send);
 }
 
 t_seg		ft_line_y_under_2(t_coo co, int val1, int val2)
@@ -148,39 +155,37 @@ void		ft_line_y(t_coo co, int val1, int val2)
 {
 	t_seg		send;
 
-	if (ft_line_y_under_1(co, val1, val2) != NULL)
-		send = ft_line_y_under_1(co, val1, val2);
+	send = ft_line_y_under_1(co, val1, val2);
+	if (send.xa != -1)
+	{
+		ft_draw_seg(send);
+		return ;
+	}
 	else
 		send = ft_line_y_under_2(co, val1, val2);
 	ft_draw_seg(send);
 	return ;
 }
 
-void		ft_draw_x(int **coo, t_data data)
+void		ft_draw_x(t_file *file)
 {
-	t_coo_int	co;
+	int		i;
+	t_coo	co;
 
-
+	i = 0;
+	co.data = file->data;
+	while (file->current->next != NULL)
+	{
+		while (file->current->next->x == i)
+		{
+			
+		}
+	}
 }
 
 void		ft_draw_y(t_file *file)
 {
-	int		i;
-	t_coo 	co;
 
-	i = 0;
-	co.data = file->data;
-	while (file->current != NULL)
-	{
-		while (file->current->y == i && file->current != NULL)
-		{
-			co.x = file->current->x;
-			co.y = file->current->y;
-			ft_line_y(co, file->current->z, file->current->next->z);
-			file->current = file->current->next;
-		}
-		i++;
-	}
 }
 
 double		x_iso(double x, double y)

@@ -38,7 +38,7 @@ typedef struct		s_data
 	void		*mlx_window;
 }					t_data;
 
-typedef struct 		s_seg;
+typedef struct 		s_seg
 {
 	double			xa;
 	double			xb;
@@ -74,19 +74,29 @@ void				open_new(t_file *coo);
 t_file				*ft_get_coord(char *path);
 void				ft_error(void);
 
-void				ft_draw_seg(double xa, double xb, double ya,
-					double yb, t_data data);
-void				ft_draw_y(int **coo, t_data data);
-void				ft_draw_x(int **coo, t_data data);
-void				ft_line_x(t_coo_int co, int val1, int val2, t_data data);
-void				ft_line_y(t_coo_int co, int val1, int val2, t_data data);
+char				**read_file(char *path);
+void				ft_check_char(char **file);
+t_file				*ft_add_list(t_file *file, int x, int y, int z);
+t_file				*ft_new_list(int x, int y, int z);
+t_file				*ft_parse(char **reader);
+t_file				*ft_get_coord(char *path);
 
-double				y_iso(double x, double y);
-double				x_iso(double x, double y);
-double				y_iso_up(double x, double y);
-double				smll(int x);
-
+void				ft_draw_seg(t_seg send);
 void				dx_sup(t_data data, t_coo d, t_coo incr, t_coo a);
 void				dy_sup(t_data data, t_coo d, t_coo incr, t_coo a);
+double				smll(int x);
+
+t_seg				ft_line_x_under_1(t_coo co, int val1, int val2);
+t_seg				ft_line_x_under_2(t_coo co, int val1, int val2);
+void				ft_line_x(t_coo co, int val1, int val2);
+t_seg				ft_line_y_under_1(t_coo co, int val1, int val2);
+t_seg				ft_line_y_under_2(t_coo co, int val1, int val2);
+void				ft_line_y(t_coo co, int val1, int val2);
+void				ft_draw_x(t_file *file);
+void				ft_draw_y(t_file *file);
+
+double				x_iso(double x, double y);
+double				y_iso_up(double x, double y);
+double				y_iso(double x, double y);
 
 #endif
