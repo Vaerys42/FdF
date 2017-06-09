@@ -40,12 +40,15 @@ void		ft_draw_x(t_file *file)
 	{
 		while (file->current->next->x == i && file->current->next != NULL)
 		{
-			printf("%d\n", i);
 			co.x = i;
 			co.y = file->current->y;
+			printf("%d -- %d\n", file->current->z, file->current->next->z);
 			//ft_line_x(co, file->current->z, file->current->next->z);
 			file->current = file->current->next;
 		}
+		printf("\n");
+		if (file->current->next != NULL && file->current->next->z != i)
+			file->current = file->current->next;
 		i++;
 	}
 }
