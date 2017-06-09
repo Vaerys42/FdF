@@ -19,7 +19,7 @@
 # include <stdio.h>
 # include <string.h>
 # include <math.h>
-# include "minilibx/mlx.h"
+# include "minilibx_macos/mlx.h"
 # include "libft/includes/libft.h"
 
 # define BLUE 0x000000FF

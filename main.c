@@ -25,6 +25,6 @@ int			main(void)
 	}*/
 	file = ft_get_coord("test");
 	file->current = file->first;
-	//open_new(file);
+	open_new(file);
 	return (0);
 }
