@@ -38,7 +38,7 @@ void		ft_draw_x(t_file *file)
 	file->current = file->first;
 	while (file->current->next != NULL)
 	{
-		while (file->current->next->x == i && file->current->next != NULL)
+		while (file->current->next != NULL && file->current->next->x == i)
 		{
 			co.x = i;
 			co.y = file->current->y;
@@ -47,7 +47,7 @@ void		ft_draw_x(t_file *file)
 			file->current = file->current->next;
 		}
 		printf("\n");
-		if (file->current->next != NULL && file->current->next->z != i)
+		if (file->current->next != NULL && file->current->next->x != i)
 			file->current = file->current->next;
 		i++;
 	}

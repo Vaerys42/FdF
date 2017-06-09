@@ -17,6 +17,7 @@ int			ft_lst_len(t_file *file)
 	int		max;
 
 	max = 0;
+	file->current = file->first;
 	while (file->current->next != NULL)
 	{
 		while (file->current->y == max)
