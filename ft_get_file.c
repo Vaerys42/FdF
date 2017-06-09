@@ -127,7 +127,7 @@ t_file		*ft_parse(char **reader)
 		}
 		while (tab[x] != NULL)
 		{
-			file = ft_add_list(file, x, y, ft_atoi(tab[x]));
+			file = ft_add_list(file, y, x, ft_atoi(tab[x]));
 			x++;
 		}
 		free(tab);
@@ -144,8 +144,6 @@ t_file		*ft_get_coord(char *path)
 	reader = read_file(path);
 	write(1, "", 0);
 	ft_check_char(reader);
-	ft_putstr("read & check OK\n");
 	file = ft_parse(reader);
-	ft_putstr("parse OK\n");
 	return (file);
 }

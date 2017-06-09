@@ -25,6 +25,12 @@ int			main(void)
 	}*/
 	file = ft_get_coord("test");
 	file->current = file->first;
+	while (file->current->next != NULL)
+	{
+		printf("x: %d - y: %d - z: %d\n", file->current->x, file->current->y, file->current->z);
+		file->current = file->current->next;
+	}
+	printf("x: %d - y: %d - z: %d\n\n\n", file->current->x, file->current->y, file->current->z);
 	open_new(file);
 	return (0);
 }
