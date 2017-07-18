@@ -12,21 +12,6 @@
 
 #include "fdf.h"
 
-int			ft_lst_len(t_file *file)
-{
-	int		max;
-
-	max = 0;
-	file->current = file->first;
-	while (file->current->next != NULL)
-	{
-		while (file->current->y == max)
-			file->current = file->current->next;
-		max++;
-	}
-	return (max);
-}
-
 void		ft_line_y(t_coo co, int val1, int val2)
 {
 	t_seg		send;
@@ -45,33 +30,24 @@ void		ft_line_y(t_coo co, int val1, int val2)
 
 void		ft_draw_y(t_file *file)
 {
-	int		y;
-	int		max;
-	int		prevz;
+	int		i;
 	t_coo	co;
 
-	y = -1;
-	max = ft_lst_len(file);
-	prevz = -1;
+	i = 0;
 	co.data = file->data;
-	while (++y <= max)
+	file->current = file->first_y;
+	while (file->current->next != NULL)
 	{
-		file->current = file->first;
-		while (file->current->next != NULL)
+		while (file->current->next != NULL && file->current->next->y == i)
 		{
-			if (file->current->y == y && prevz != -1)
-			{
-				ft_line_y(co, prevz, file->current->z);
-				prevz = -1;
-			}
-			if (file->current->y == y && prevz == -1)
-			{
-				co.x = file->current->x;
-				co.y = y;
-				prevz = file->current->z;
-			}
+			co.x = file->current->x;
+			co.y = file->current->y;
+			ft_line_y(co, file->current->z, file->current->next->z);
 			file->current = file->current->next;
 		}
+		if (file->current->next != NULL && file->current->next->y != i)
+			file->current = file->current->next;
+		i++;
 	}
 }
 
@@ -83,17 +59,17 @@ t_seg		ft_line_y_under_1(t_coo co, int val1, int val2)
 	if (val1 == val2 && val1 == 0)
 	{
 		send.xa = x_iso(co.x, co.y);
-		send.xb = x_iso(co.x, co.y + 1);
+		send.xb = x_iso(co.x + 1, co.y);
 		send.ya = y_iso(co.x, co.y);
-		send.yb = y_iso(co.x, co.y + 1);
+		send.yb = y_iso(co.x + 1, co.y);
 		return (send);
 	}
 	if (val1 < val2 && val1 == 0)
 	{
 		send.xa = x_iso(co.x, co.y - smll(val1));
-		send.xb = x_iso(co.x, co.y + 1 - smll(val2));
+		send.xb = x_iso(co.x + 1, co.y - smll(val2));
 		send.ya = y_iso(co.x, co.y - smll(val1));
-		send.yb = y_iso_up(co.x, co.y + 1 - smll(val2));
+		send.yb = y_iso_up(co.x + 1, co.y - smll(val2));
 		return (send);
 	}
 	send.xa = -1;
@@ -102,23 +78,23 @@ t_seg		ft_line_y_under_1(t_coo co, int val1, int val2)
 
 t_seg		ft_line_y_under_2(t_coo co, int val1, int val2)
 {
-	t_seg	send;
+	t_seg		send;
 
 	send.data = co.data;
 	if (val1 > val2 && val2 == 0)
 	{
 		send.xa = x_iso(co.x, co.y - smll(val1));
-		send.xb = x_iso(co.x, co.y + 1 - smll(val2));
+		send.xb = x_iso(co.x + 1, co.y - smll(val2));
 		send.ya = y_iso_up(co.x, co.y - smll(val1));
-		send.yb = y_iso(co.x, co.y + 1 - smll(val2));
+		send.yb = y_iso(co.x + 1, co.y - smll(val2));
 		return (send);
 	}
 	else
 	{
 		send.xa = x_iso(co.x, co.y - smll(val1));
-		send.xb = x_iso(co.x, co.y + 1 - smll(val2));
+		send.xb = x_iso(co.x + 1, co.y - smll(val2));
 		send.ya = y_iso_up(co.x, co.y - smll(val1));
-		send.yb = y_iso_up(co.x, co.y + 1 - smll(val2));
+		send.yb = y_iso_up(co.x + 1, co.y - smll(val2));
 	}
 	return (send);
 }

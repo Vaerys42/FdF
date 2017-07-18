@@ -57,8 +57,9 @@ typedef	struct 		s_one
 
 typedef struct 		s_file
 {
-	t_one			*first;
+	t_one			*first_x;
 	t_one			*current;
+	t_one			*first_y;
 	t_data			data;
 }					t_file;
 
@@ -76,8 +77,12 @@ void				ft_error(void);
 
 char				**read_file(char *path);
 void				ft_check_char(char **file);
-t_file				*ft_add_list(t_file *file, int x, int y, int z);
-t_file				*ft_new_list(int x, int y, int z);
+t_file				*ft_add_list_x(t_file *file, int x, int y, int z);
+t_file				*ft_add_list_y(t_file *file, int x, int y, int z);
+t_file				*ft_new_list_x(int x, int y, int z, t_file *file);
+t_file				*ft_new_list_y(int x, int y, int z, int len);
+t_file				*ft_create_y(char **reader);
+t_file				*ft_create_x(char **reader, t_file *file);
 t_file				*ft_parse(char **reader);
 t_file				*ft_get_coord(char *path);
 

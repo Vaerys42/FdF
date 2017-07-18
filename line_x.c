@@ -35,18 +35,16 @@ void		ft_draw_x(t_file *file)
 
 	i = 0;
 	co.data = file->data;
-	file->current = file->first;
+	file->current =file->first_x;
 	while (file->current->next != NULL)
 	{
 		while (file->current->next != NULL && file->current->next->x == i)
 		{
-			co.x = i;
+			co.x = file->current->x;
 			co.y = file->current->y;
-			printf("%d -- %d\n", file->current->z, file->current->next->z);
-			//ft_line_x(co, file->current->z, file->current->next->z);
+			ft_line_x(co, file->current->z, file->current->next->z);
 			file->current = file->current->next;
 		}
-		printf("\n");
 		if (file->current->next != NULL && file->current->next->x != i)
 			file->current = file->current->next;
 		i++;
@@ -61,17 +59,17 @@ t_seg		ft_line_x_under_1(t_coo co, int val1, int val2)
 	if (val1 == val2 && val1 == 0)
 	{
 		send.xa = x_iso(co.x, co.y);
-		send.xb = x_iso(co.x + 1, co.y);
+		send.xb = x_iso(co.x, co.y + 1);
 		send.ya = y_iso(co.x, co.y);
-		send.yb = y_iso(co.x + 1, co.y);
+		send.yb = y_iso(co.x, co.y + 1);
 		return (send);
 	}
 	if (val1 < val2 && val1 == 0)
 	{
 		send.xa = x_iso(co.x, co.y - smll(val1));
-		send.xb = x_iso(co.x + 1, co.y - smll(val2));
+		send.xb = x_iso(co.x, co.y + 1 - smll(val2));
 		send.ya = y_iso(co.x, co.y - smll(val1));
-		send.yb = y_iso_up(co.x + 1, co.y - smll(val2));
+		send.yb = y_iso_up(co.x, co.y + 1 - smll(val2));
 		return (send);
 	}
 	send.xa = -1;
@@ -80,23 +78,23 @@ t_seg		ft_line_x_under_1(t_coo co, int val1, int val2)
 
 t_seg		ft_line_x_under_2(t_coo co, int val1, int val2)
 {
-	t_seg		send;
+	t_seg	send;
 
 	send.data = co.data;
 	if (val1 > val2 && val2 == 0)
 	{
 		send.xa = x_iso(co.x, co.y - smll(val1));
-		send.xb = x_iso(co.x + 1, co.y - smll(val2));
+		send.xb = x_iso(co.x, co.y + 1 - smll(val2));
 		send.ya = y_iso_up(co.x, co.y - smll(val1));
-		send.yb = y_iso(co.x + 1, co.y - smll(val2));
+		send.yb = y_iso(co.x, co.y + 1 - smll(val2));
 		return (send);
 	}
 	else
 	{
 		send.xa = x_iso(co.x, co.y - smll(val1));
-		send.xb = x_iso(co.x + 1, co.y - smll(val2));
+		send.xb = x_iso(co.x, co.y + 1 - smll(val2));
 		send.ya = y_iso_up(co.x, co.y - smll(val1));
-		send.yb = y_iso_up(co.x + 1, co.y - smll(val2));
+		send.yb = y_iso_up(co.x, co.y + 1 - smll(val2));
 	}
 	return (send);
 }

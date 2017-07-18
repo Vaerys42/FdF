@@ -25,11 +25,13 @@ void		open_new(t_file *file)
 
 	if ((data.mlx = mlx_init()) == NULL)
 		ft_error();
-	if ((data.mlx_window = mlx_new_window(data.mlx, 1000, 800, "Fdf")) == NULL)
+	if ((data.mlx_window = mlx_new_window(data.mlx, 1500, 1200, "Fdf")) == NULL)
 		ft_error();
 	file->data = data;
-	//ft_draw_y(file);
-	ft_draw_x(file);
+	if (file->first_y != NULL)
+		ft_draw_y(file);
+	if (file->first_x != NULL)
+		ft_draw_x(file);
 	mlx_key_hook(data.mlx_window, my_key_func, 0);
 	mlx_loop(data.mlx);
 }

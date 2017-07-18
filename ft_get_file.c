@@ -39,15 +39,33 @@ char		**read_file(char *path)
 	fd = open(path, O_RDONLY);
 	while ((ret = get_next_line(fd, &tmp)) > 0)
 	{
-		line[i] = ft_strdup(tmp);
+		line[i++] = ft_strdup(tmp);
 		free(tmp);
-		i++;
 	}
-	if (ret == -1)
-		ft_error();
 	line[i] = 0;
 	close(fd);
 	return (line);
+}
+
+void		ft_check_line(char **file)
+{
+	int		len;
+	int		i;
+	int		j;
+
+	len = 0;
+	j = 1;
+	while (file[0][len] != 0)
+		len++;
+	while (file[j] != 0)
+	{
+		i = 0;
+		while (file[j][i] != 0)
+			i++;
+		if (i != len)
+			ft_error();
+		j++;
+	}
 }
 
 void		ft_check_char(char **file)
@@ -55,84 +73,30 @@ void		ft_check_char(char **file)
 	int		i;
 	int		j;
 
-	i = -1;
-	while (file[++i] != 0)
+	i = 0;
+	while (file[i] != 0)
 	{
-		j = -1;
-		while (file[i][++j] != 0)
+		j = 0;
+		while (file[i][j] != 0)
 		{
-			if (file[i][j] != ' ' && (file[i][j] < 60 && file[i][j] > 71))
+			if (file[i][j] != ' ' && ft_isdigit(file[i][j]) == 0)
 				ft_error();
+			j++;
 		}
+		i++;
 	}
-}
-
-t_file		*ft_add_list(t_file *file, int x, int y, int z)
-{
-	t_one		*new;
-
-	if (!file)
-		ft_error();
-	new = (t_one*)malloc(sizeof(*new));
-	if (!new)
-		ft_error();
-	new->x = x;
-	new->y = y;
-	new->z = z;
-	new->next = NULL;
-	while (file->current->next != NULL)
-		file->current = file->current->next;
-	file->current->next = new;
-	if (file->first->next == NULL)
-		file->first->next = file->current->next;
-	return (file);
-}
-
-t_file		*ft_new_list(int x, int y, int z)
-{
-	t_file		*file;
-	t_one		*ini;
-
-	file = (t_file*)malloc(sizeof(*file));
-	if (!file)
-		ft_error();
-	ini = (t_one*)malloc(sizeof(*ini));
-	if (!ini)
-		ft_error();
-	ini->x = x;
-	ini->y = y;
-	ini->z = z;
-	ini->next = NULL;
-	file->first = ini;
-	file->current = ini;
-	return (file);
 }
 
 t_file		*ft_parse(char **reader)
 {
-	int		x;
-	int		y;
-	char	**tab;
 	t_file	*file;
+	int		len;
 
-	y = 0;
-	while (reader[y] != 0)
-	{
-		x = 0;
-		tab = ft_strsplit(reader[y], ' ');
-		if (x == 0 && y == 0)
-		{
-			file = ft_new_list(0, 0, ft_atoi(tab[0]));
-			x++;
-		}
-		while (tab[x] != NULL)
-		{
-			file = ft_add_list(file, y, x, ft_atoi(tab[x]));
-			x++;
-		}
-		free(tab);
-		y++;
-	}
+	len = 0;
+	while (reader[len] != 0)
+		len++;
+	file = ft_create_y(reader);
+	ft_create_x(reader, file);
 	return (file);
 }
 
@@ -143,6 +107,7 @@ t_file		*ft_get_coord(char *path)
 
 	reader = read_file(path);
 	write(1, "", 0);
+	ft_check_line(reader);
 	ft_check_char(reader);
 	file = ft_parse(reader);
 	return (file);
