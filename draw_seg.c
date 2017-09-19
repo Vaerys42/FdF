@@ -12,7 +12,26 @@
 
 #include "fdf.h"
 
-void		ft_draw_seg(t_seg send)
+int		get_color(int z)
+{
+	if (z > 0 && z < 5)
+		return (GREEN);
+	if (z >= 5 && z < 10)
+		return (BROWN);
+	return (WHITE);
+}
+
+void	put_pxl(t_data *data, int x, int y, unsigned int c)
+{
+	int		i;
+
+	i = (x * 4) + (y * data->s_l);
+	data->image_string[i] = c;
+	data->image_string[++i] = c >> 8;
+	data->image_string[++i] = c >> 16;
+}
+
+void		ft_draw_seg(t_seg send, t_fdf *fdf)
 {
 	t_coo	d;
 	t_coo	incr;
@@ -29,14 +48,14 @@ void		ft_draw_seg(t_seg send)
 	if (send.ya < send.yb)
 		incr.y = 1;
 	if (d.x > d.y)
-		dx_sup(send.data, d, incr, a);
+		dx_sup(fdf->data, d, incr, a);
 	else
-		dy_sup(send.data, d, incr, a);
-	mlx_pixel_put(send.data.mlx, send.data.mlx_window, send.xa, send.ya, WHITE);
-	mlx_pixel_put(send.data.mlx, send.data.mlx_window, send.xb, send.yb, WHITE);
+		dy_sup(fdf->data, d, incr, a);
+	put_pxl(fdf->data, send.xa, send.ya, WHITE);
+	put_pxl(fdf->data, send.xb, send.yb, WHITE);
 }
 
-void		dx_sup(t_data data, t_coo d, t_coo incr, t_coo a)
+void		dx_sup(t_data *data, t_coo d, t_coo incr, t_coo a)
 {
 	double		i;
 	double		erreur;
@@ -56,12 +75,12 @@ void		dx_sup(t_data data, t_coo d, t_coo incr, t_coo a)
 			erreur = erreur - d.x;
 			y = y + incr.y;
 		}
-		mlx_pixel_put(data.mlx, data.mlx_window, x, y, WHITE);
+		put_pxl(data, x, y, WHITE);
 		i++;
 	}
 }
 
-void		dy_sup(t_data data, t_coo d, t_coo incr, t_coo a)
+void		dy_sup(t_data *data, t_coo d, t_coo incr, t_coo a)
 {
 	double		i;
 	double		erreur;
@@ -81,7 +100,7 @@ void		dy_sup(t_data data, t_coo d, t_coo incr, t_coo a)
 			erreur = erreur - d.y;
 			x = x + incr.x;
 		}
-		mlx_pixel_put(data.mlx, data.mlx_window, x, y, WHITE);
+		put_pxl(data, x, y, WHITE);
 		i++;
 	}
 }

@@ -29,13 +29,25 @@
 # define PINK 0x0000FFFF
 # define WHITE 0x00FFFFFF
 # define BLACK 0x00000000
+# define BROWN 0x00933D1D
 
 typedef	struct 		s_one	t_one;
 
-typedef struct		s_data
+typedef struct 		s_key
 {
-	void		*mlx;
-	void		*mlx_window;
+	int				x;
+	int				y;
+}					t_key;
+
+typedef struct 		s_data
+{
+	void			*mlx;
+	void			*mlx_window;
+	void			*mlx_image;
+	char 			*image_string;
+	int				s_l;
+	int				bpp;
+	int				endian;
 }					t_data;
 
 typedef struct 		s_seg
@@ -44,7 +56,6 @@ typedef struct 		s_seg
 	double			xb;
 	double			ya;
 	double			yb;
-	t_data			data;
 }					t_seg;
 
 typedef	struct 		s_one
@@ -60,18 +71,23 @@ typedef struct 		s_file
 	t_one			*first_x;
 	t_one			*current;
 	t_one			*first_y;
-	t_data			data;
 }					t_file;
-
 
 typedef	struct		s_coo
 {
 	double			x;
 	double			y;
-	t_data			data;
+	t_data			*data;
 }					t_coo;
+
+typedef struct 		s_fdf
+{
+	t_data			*data;
+	t_file			*file;
+	t_key			*key;
+}					t_fdf;
 	
-void				open_new(t_file *coo);
+void				open_new(t_fdf *fdf);
 t_file				*ft_get_coord(char *path);
 void				ft_error(void);
 
@@ -86,22 +102,22 @@ t_file				*ft_create_x(char **reader, t_file *file);
 t_file				*ft_parse(char **reader);
 t_file				*ft_get_coord(char *path);
 
-void				ft_draw_seg(t_seg send);
-void				dx_sup(t_data data, t_coo d, t_coo incr, t_coo a);
-void				dy_sup(t_data data, t_coo d, t_coo incr, t_coo a);
+void				ft_draw_seg(t_seg send, t_fdf *fdf);
+void				dx_sup(t_data *data, t_coo d, t_coo incr, t_coo a);
+void				dy_sup(t_data *data, t_coo d, t_coo incr, t_coo a);
 double				smll(int x);
 
-t_seg				ft_line_x_under_1(t_coo co, int val1, int val2);
-t_seg				ft_line_x_under_2(t_coo co, int val1, int val2);
-void				ft_line_x(t_coo co, int val1, int val2);
-t_seg				ft_line_y_under_1(t_coo co, int val1, int val2);
-t_seg				ft_line_y_under_2(t_coo co, int val1, int val2);
-void				ft_line_y(t_coo co, int val1, int val2);
-void				ft_draw_x(t_file *file);
-void				ft_draw_y(t_file *file);
+t_seg				ft_line_x_under_1(t_coo co, int val1, int val2, t_fdf *fdf);
+t_seg				ft_line_x_under_2(t_coo co, int val1, int val2, t_fdf *fdf);
+void				ft_line_x(t_coo co, int val1, int val2, t_fdf *fdf);
+t_seg				ft_line_y_under_1(t_coo co, int val1, int val2, t_fdf *fdf);
+t_seg				ft_line_y_under_2(t_coo co, int val1, int val2, t_fdf *fdf);
+void				ft_line_y(t_coo co, int val1, int val2, t_fdf *fdf);
+void				ft_draw_x(t_fdf *fdf);
+void				ft_draw_y(t_fdf *fdf);
 
-double				x_iso(double x, double y);
-double				y_iso_up(double x, double y);
-double				y_iso(double x, double y);
+double				x_iso(double x, double y, t_fdf *fdf);
+double				y_iso_up(double x, double y, t_fdf *fdf);
+double				y_iso(double x, double y, t_fdf *fdf);
 
 #endif
