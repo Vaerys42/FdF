@@ -13,13 +13,13 @@
 NAME = fdf
 
 SRC = 	main.c \
-		mlx_window.c \
+		conv.c \
 		ft_get_file.c \
-		draw_seg.c \
 		file_x.c \
 		file_y.c \
-		line_y.c \
-		line_x.c \
+		line.c \
+		color.c \
+		draw_seg.c \
 
 LIBS = -framework OpenGL -framework Appkit minilibx_macos/libmlx.a libft/libft.a
 
@@ -30,7 +30,7 @@ all : $(NAME)
 $(NAME) : 
 		make -C libft/
 		make -C minilibx_macos/
-		gcc -c $(SRC)
+		gcc -c -g $(SRC)
 		gcc $(LIBS) $(OBJ) -o $(NAME)
 
 clean :

@@ -50,21 +50,26 @@ typedef struct 		s_data
 	int				endian;
 }					t_data;
 
-typedef struct 		s_seg
-{
-	double			xa;
-	double			xb;
-	double			ya;
-	double			yb;
-}					t_seg;
-
 typedef	struct 		s_one
 {
 	int 			x;
 	int 			y;
 	int 			z;
+	int				color;
+	double			win_x;
+	double			win_y;
 	t_one			*next;
 }					t_one;
+
+typedef struct 		s_seg
+{
+	int				incr_x;
+	int				incr_y;
+	int				a_x;
+	int				a_y;
+	int				d_x;
+	int				d_y;
+}					t_seg;
 
 typedef struct 		s_file
 {
@@ -73,18 +78,12 @@ typedef struct 		s_file
 	t_one			*first_y;
 }					t_file;
 
-typedef	struct		s_coo
-{
-	double			x;
-	double			y;
-	t_data			*data;
-}					t_coo;
-
 typedef struct 		s_fdf
 {
 	t_data			*data;
 	t_file			*file;
 	t_key			*key;
+	t_seg			*seg;
 }					t_fdf;
 	
 void				open_new(t_fdf *fdf);
@@ -102,22 +101,19 @@ t_file				*ft_create_x(char **reader, t_file *file);
 t_file				*ft_parse(char **reader);
 t_file				*ft_get_coord(char *path);
 
-void				ft_draw_seg(t_seg send, t_fdf *fdf);
-void				dx_sup(t_data *data, t_coo d, t_coo incr, t_coo a);
-void				dy_sup(t_data *data, t_coo d, t_coo incr, t_coo a);
 double				smll(int x);
 
-t_seg				ft_line_x_under_1(t_coo co, int val1, int val2, t_fdf *fdf);
-t_seg				ft_line_x_under_2(t_coo co, int val1, int val2, t_fdf *fdf);
-void				ft_line_x(t_coo co, int val1, int val2, t_fdf *fdf);
-t_seg				ft_line_y_under_1(t_coo co, int val1, int val2, t_fdf *fdf);
-t_seg				ft_line_y_under_2(t_coo co, int val1, int val2, t_fdf *fdf);
-void				ft_line_y(t_coo co, int val1, int val2, t_fdf *fdf);
 void				ft_draw_x(t_fdf *fdf);
 void				ft_draw_y(t_fdf *fdf);
+
+void				ft_draw_seg(t_fdf *fdf);
+void				dx_sup(t_fdf *fdf);
+void				dy_sup(t_fdf *fdf);
 
 double				x_iso(double x, double y, t_fdf *fdf);
 double				y_iso_up(double x, double y, t_fdf *fdf);
 double				y_iso(double x, double y, t_fdf *fdf);
+
+int					get_color(int z);
 
 #endif

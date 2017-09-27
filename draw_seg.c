@@ -12,15 +12,6 @@
 
 #include "fdf.h"
 
-int		get_color(int z)
-{
-	if (z > 0 && z < 5)
-		return (GREEN);
-	if (z >= 5 && z < 10)
-		return (BROWN);
-	return (WHITE);
-}
-
 void	put_pxl(t_data *data, int x, int y, unsigned int c)
 {
 	int		i;
@@ -31,31 +22,27 @@ void	put_pxl(t_data *data, int x, int y, unsigned int c)
 	data->image_string[++i] = c >> 16;
 }
 
-void		ft_draw_seg(t_seg send, t_fdf *fdf)
+void		ft_draw_seg(t_fdf *fdf)
 {
-	t_coo	d;
-	t_coo	incr;
-	t_coo	a;
-
-	incr.x = -1;
-	incr.y = -1;
-	a.x = send.xa;
-	a.y = send.ya;
-	d.x = fabs(send.xb - send.xa);
-	d.y = fabs(send.yb - send.ya);
-	if (send.xa < send.xb)
-		incr.x = 1;
-	if (send.ya < send.yb)
-		incr.y = 1;
-	if (d.x > d.y)
-		dx_sup(fdf->data, d, incr, a);
+	fdf->seg->incr_x = -1;
+	fdf->seg->incr_y = -1;
+	fdf->seg->a_x = fdf->file->current->win_x;
+	fdf->seg->a_y = fdf->file->current->win_y;
+	fdf->seg->d_x = fabs(fdf->file->current->next->win_x - fdf->file->current->win_x);
+	fdf->seg->d_y = fabs(fdf->file->current->next->win_y - fdf->file->current->win_y);
+	if (fdf->file->current->win_x < fdf->file->current->next->win_x)
+		fdf->seg->incr_x = 1;
+	if (fdf->file->current->win_y < fdf->file->current->next->win_y)
+		fdf->seg->incr_y = 1;
+	if (fdf->seg->d_x > fdf->seg->d_y)
+		dx_sup(fdf);
 	else
-		dy_sup(fdf->data, d, incr, a);
-	put_pxl(fdf->data, send.xa, send.ya, WHITE);
-	put_pxl(fdf->data, send.xb, send.yb, WHITE);
+		dy_sup(fdf);
+	put_pxl(fdf->data, fdf->file->current->win_x, fdf->file->current->win_y, fdf->file->current->color);
+	put_pxl(fdf->data, fdf->file->current->next->win_x, fdf->file->current->next->win_y, fdf->file->current->next->color);
 }
 
-void		dx_sup(t_data *data, t_coo d, t_coo incr, t_coo a)
+void		dx_sup(t_fdf *fdf)
 {
 	double		i;
 	double		erreur;
@@ -63,24 +50,24 @@ void		dx_sup(t_data *data, t_coo d, t_coo incr, t_coo a)
 	double		y;
 
 	i = 0;
-	x = a.x;
-	y = a.y;
-	erreur = d.x / 2;
-	while (i < d.x)
+	x = fdf->seg->a_x;
+	y = fdf->seg->a_y;
+	erreur = fdf->seg->d_x / 2;
+	while (i < fdf->seg->d_x)
 	{
-		x = x + incr.x;
-		erreur = erreur + d.y;
-		if (erreur > d.x)
+		x = x + fdf->seg->incr_x;
+		erreur = erreur + fdf->seg->d_y;
+		if (erreur > fdf->seg->d_x)
 		{
-			erreur = erreur - d.x;
-			y = y + incr.y;
+			erreur = erreur - fdf->seg->d_x;
+			y = y + fdf->seg->incr_y;
 		}
-		put_pxl(data, x, y, WHITE);
+		put_pxl(fdf->data, x, y, fdf->file->current->color);
 		i++;
 	}
 }
 
-void		dy_sup(t_data *data, t_coo d, t_coo incr, t_coo a)
+void		dy_sup(t_fdf *fdf)
 {
 	double		i;
 	double		erreur;
@@ -88,19 +75,19 @@ void		dy_sup(t_data *data, t_coo d, t_coo incr, t_coo a)
 	double		y;
 
 	i = 0;
-	x = a.x;
-	y = a.y;
-	erreur = d.y / 2;
-	while (i < d.y)
+	x = fdf->seg->a_x;
+	y = fdf->seg->a_y;
+	erreur = fdf->seg->d_y / 2;
+	while (i < fdf->seg->d_y)
 	{
-		y = y + incr.y;
-		erreur = erreur + d.x;
-		if (erreur > d.y)
+		y = y + fdf->seg->incr_y;
+		erreur = erreur + fdf->seg->d_x;
+		if (erreur > fdf->seg->d_y)
 		{
-			erreur = erreur - d.y;
-			x = x + incr.x;
+			erreur = erreur - fdf->seg->d_y;
+			x = x + fdf->seg->incr_x;
 		}
-		put_pxl(data, x, y, WHITE);
+		put_pxl(fdf->data, x, y, fdf->file->current->color);
 		i++;
 	}
 }

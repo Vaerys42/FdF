@@ -11,6 +11,7 @@ t_file		*ft_new_list_x(int x, int y, int z, t_file *file)
 	ini->x = x;
 	ini->y = y;
 	ini->z = z;
+	ini->color = get_color(z);
 	ini->next = NULL;
 	file->first_x = ini;
 	file->current = ini;
@@ -29,6 +30,7 @@ t_file		*ft_add_list_x(t_file *file, int x, int y, int z)
 	new->x = x;
 	new->y = y;
 	new->z = z;
+	new->color = get_color(z);
 	new->next = NULL;
 	while (file->current->next != NULL)
 		file->current = file->current->next;
