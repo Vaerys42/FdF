@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   file_x.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kboucaud <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/09/27 16:37:43 by kboucaud          #+#    #+#             */
+/*   Updated: 2017/09/27 16:37:45 by kboucaud         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "fdf.h"
 
@@ -38,16 +49,6 @@ t_file		*ft_add_list_x(t_file *file, int x, int y, int z)
 	if (file->first_x->next == NULL)
 		file->first_x->next = file->current->next;
 	return (file);
-}
-
-int			reader_len(char **reader)
-{
-	int		i;
-
-	i = 0;
-	while (reader[i] != 0)
-		i++;
-	return (i);
 }
 
 int			**to_tab(char **reader)
@@ -92,12 +93,6 @@ t_file		*ft_create_x_under(int **tab, t_file *file, int x, int len)
 		file = ft_add_list_x(file, x, y, tab[y][x]);
 		y++;
 	}
-	return (file);
-}
-
-t_file		*ft_return_len(t_file *file)
-{
-	file->first_x = NULL;
 	return (file);
 }
 

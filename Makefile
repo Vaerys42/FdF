@@ -20,6 +20,11 @@ SRC = 	main.c \
 		line.c \
 		color.c \
 		draw_seg.c \
+		error.c \
+		length.c \
+		seg.c \
+		mlx.c \
+		alt.c \
 
 LIBS = -framework OpenGL -framework Appkit minilibx_macos/libmlx.a libft/libft.a
 

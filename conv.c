@@ -1,4 +1,4 @@
-		/* ************************************************************************** */
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   mlx_window.c                                       :+:      :+:    :+:   */
@@ -6,7 +6,7 @@
 /*   By: kboucaud <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/07 15:55:55 by kboucaud          #+#    #+#             */
-/*   Updated: 2017/03/22 16:35:43 by kboucaud         ###   ########.fr       */
+/*   Updated: 2017/09/27 15:49:00 by kboucaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,15 @@ double		smll(int x)
 
 double		x_iso(double x, double y, t_fdf *fdf)
 {
-	return ((x - y + 8.5) * 40);
+	return ((x - y + 8.5 + fdf->key->x) * 40);
 }
 
 double		y_iso_up(double x, double y, t_fdf *fdf)
 {
-	return ((x + y + 3) * 20);
+	return ((x + y + 3 + fdf->key->y) * 20);
 }
 
 double		y_iso(double x, double y, t_fdf *fdf)
 {
-	return ((x + y + 4) * 20);
+	return ((x + y + 4 + fdf->key->y) * 20);
 }

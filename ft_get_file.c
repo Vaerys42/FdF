@@ -12,12 +12,6 @@
 
 #include "fdf.h"
 
-void		ft_error(void)
-{
-	write(1, "error\n", 6);
-	exit(1);
-}
-
 char		**read_file(char *path)
 {
 	int		fd;
@@ -47,27 +41,6 @@ char		**read_file(char *path)
 	return (line);
 }
 
-void		ft_check_line(char **file)
-{
-	int		len;
-	int		i;
-	int		j;
-
-	len = 0;
-	j = 1;
-	while (file[0][len] != 0)
-		len++;
-	while (file[j] != 0)
-	{
-		i = 0;
-		while (file[j][i] != 0)
-			i++;
-		if (i != len)
-			ft_error();
-		j++;
-	}
-}
-
 void		ft_check_char(char **file)
 {
 	int		i;
@@ -84,6 +57,25 @@ void		ft_check_char(char **file)
 			j++;
 		}
 		i++;
+	}
+}
+
+void		ft_check_len(t_file *file)
+{
+	int		len;
+	int		i;
+
+	len = 0;
+	file->current = file->first_x;
+	len = ft_line_len(file);
+	while (file->current->next != NULL)
+	{
+		i = ft_line_len(file);
+		if (file->current->y != file->current->next->y
+		&& file->current->next != NULL)
+			file->current = file->current->next;
+		if (len != i)
+			ft_error();
 	}
 }
 
@@ -107,8 +99,8 @@ t_file		*ft_get_coord(char *path)
 
 	reader = read_file(path);
 	write(1, "", 0);
-	ft_check_line(reader);
 	ft_check_char(reader);
 	file = ft_parse(reader);
+	ft_check_len(file);
 	return (file);
 }

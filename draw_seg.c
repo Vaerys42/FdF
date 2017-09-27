@@ -12,7 +12,7 @@
 
 #include "fdf.h"
 
-void	put_pxl(t_data *data, int x, int y, unsigned int c)
+void		put_pxl(t_data *data, int x, int y, unsigned int c)
 {
 	int		i;
 
@@ -28,8 +28,10 @@ void		ft_draw_seg(t_fdf *fdf)
 	fdf->seg->incr_y = -1;
 	fdf->seg->a_x = fdf->file->current->win_x;
 	fdf->seg->a_y = fdf->file->current->win_y;
-	fdf->seg->d_x = fabs(fdf->file->current->next->win_x - fdf->file->current->win_x);
-	fdf->seg->d_y = fabs(fdf->file->current->next->win_y - fdf->file->current->win_y);
+	fdf->seg->d_x = fabs(fdf->file->current->next->win_x -
+	fdf->file->current->win_x);
+	fdf->seg->d_y = fabs(fdf->file->current->next->win_y -
+	fdf->file->current->win_y);
 	if (fdf->file->current->win_x < fdf->file->current->next->win_x)
 		fdf->seg->incr_x = 1;
 	if (fdf->file->current->win_y < fdf->file->current->next->win_y)
@@ -38,8 +40,10 @@ void		ft_draw_seg(t_fdf *fdf)
 		dx_sup(fdf);
 	else
 		dy_sup(fdf);
-	put_pxl(fdf->data, fdf->file->current->win_x, fdf->file->current->win_y, fdf->file->current->color);
-	put_pxl(fdf->data, fdf->file->current->next->win_x, fdf->file->current->next->win_y, fdf->file->current->next->color);
+	put_pxl(fdf->data, fdf->file->current->win_x, fdf->file->current->win_y,
+	fdf->file->current->color);
+	put_pxl(fdf->data, fdf->file->current->next->win_x,
+	fdf->file->current->next->win_y, fdf->file->current->next->color);
 }
 
 void		dx_sup(t_fdf *fdf)
