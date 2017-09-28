@@ -12,35 +12,41 @@
 
 NAME = fdf
 
-SRC = 	main.c \
-		conv.c \
-		ft_get_file.c \
-		file_x.c \
-		file_y.c \
-		line.c \
-		color.c \
-		draw_seg.c \
-		error.c \
-		length.c \
-		seg.c \
-		mlx.c \
-		alt.c \
+SRC = 	src/main.c \
+		src/conv.c \
+		src/ft_get_file.c \
+		src/file_x.c \
+		src/file_y.c \
+		src/line.c \
+		src/color.c \
+		src/draw_seg.c \
+		src/error.c \
+		src/length.c \
+		src/seg.c \
+		src/mlx.c \
+		src/alt.c \
+		src/down.c \
 
 LIBS = -framework OpenGL -framework Appkit minilibx_macos/libmlx.a libft/libft.a
 
-OBJ = $(SRC:.c=.o)
+OBJ = $(patsubst src/%.c,obj/%.o,$(SRC))
+
+.SILENT :
 
 all : $(NAME)
 
-$(NAME) : 
+$(NAME) : $(OBJ)
 		make -C libft/
 		make -C minilibx_macos/
-		gcc -c -g $(SRC)
 		gcc $(LIBS) $(OBJ) -o $(NAME)
+
+obj/%.o: src/%.c
+	mkdir -p obj
+	gcc -Wall -Wextra -Werror -c $< -o $@
 
 clean :
 	$(MAKE) -C libft/ clean
-	/bin/rm -f $(OBJ)
+	/bin/rm -rf obj
 
 fclean : clean
 	$(MAKE) -C libft/ fclean
