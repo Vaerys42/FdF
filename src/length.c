@@ -55,3 +55,22 @@ int			ft_line_len_y(t_file *file)
 	}
 	return (i);
 }
+
+int			ft_check(int j, char **reader)
+{
+	int		len;
+	int		i;
+
+	i = 0;
+	len = 0;
+	while (reader[j][i] != 0)
+	{
+		if (ft_isdigit(reader[j][i]) == 1)
+			len++;
+		while (ft_isdigit(reader[j][i]) == 1)
+			i++;
+		while (reader[j][i] == ' ' || reader[j][i] == '-')
+			i++;
+	}
+	return (len);
+}

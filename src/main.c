@@ -23,9 +23,9 @@ void		ft_scale(t_fdf *fdf)
 	len_y = ft_line_len_y(fdf->file);
 	fdf->space = len_y + 2;
 	if (len_x > len_y)
-		fdf->scale = 550 / len_x;
+		fdf->scale = 470 / len_x;
 	else if (len_y >= len_x)
-		fdf->scale = 550 / len_y;
+		fdf->scale = 470 / len_y;
 	else
 		fdf->scale = 0;
 }

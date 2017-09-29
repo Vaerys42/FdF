@@ -6,7 +6,7 @@
 /*   By: kboucaud <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/27 16:37:43 by kboucaud          #+#    #+#             */
-/*   Updated: 2017/09/27 16:37:45 by kboucaud         ###   ########.fr       */
+/*   Updated: 2017/09/29 16:04:47 by kboucaud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,73 +57,47 @@ t_file		*ft_add_list_x(t_file *file, int x, int y, int z)
 	return (file);
 }
 
-int			**to_tab(char **reader)
+char		***ft_create_tab(char **reader, int len)
 {
-	int			**tab;
-	char		**split;
-	int			i;
-	int			j;
+	char	***tab;
+	int		i;
 
-	tab = (int**)malloc(sizeof(int*) * (reader_len(reader)));
+	tab = (char***)malloc(sizeof(char**) * (len + 1));
+	tab[len] = NULL;
 	i = 0;
 	while (reader[i] != 0)
 	{
-		j = 0;
-		split = ft_strsplit(reader[i], ' ');
-		while (split[j] != NULL)
-			j++;
-		tab[i] = (int*)malloc(sizeof(int) * (j + 1));
-		j = -1;
-		while (split[++j] != NULL)
-			tab[i][j] = ft_atoi(split[j]);
-		tab[i][j] = -1;
-		if (reader[i + 1] == 0)
-			tab[i][j] = -2;
+		tab[i] = ft_strsplit(reader[i], ' ');
 		i++;
 	}
 	return (tab);
 }
 
-t_file		*ft_create_x_under(int **tab, t_file *file, int x, int len)
+void		ft_create_x(char **reader, t_file *file)
 {
-	int		y;
-
-	y = 0;
-	if (x == 0 && y == 0)
-	{
-		file = ft_new_list_x(0, 0, tab[0][0], file);
-		y++;
-	}
-	while (y <= len)
-	{
-		file = ft_add_list_x(file, x, y, tab[y][x]);
-		y++;
-	}
-	return (file);
-}
-
-t_file		*ft_create_x(char **reader, t_file *file)
-{
-	int		**tab;
-	int		len;
 	int		x;
+	int		y;
+	int		len;
+	char	***tab;
 
+	x = -1;
+	y = 0;
 	len = 0;
-	x = 0;
-	tab = to_tab(reader);
-	while (tab[len][x] != -1 && tab[len][x] != -2)
-		x++;
-	while (tab[len][x] != -2)
+	while (reader[len] != 0)
 		len++;
-	x = 0;
-	if (len == 0)
-		return (ft_return_len(file));
-	while (tab[len][x] != -1 && tab[len][x] != -2)
+	tab = ft_create_tab(reader, len + 1);
+	while (tab[0][++x] != 0)
 	{
-		file = ft_create_x_under(tab, file, x, len);
-		x++;
+		if (y == 0 && x == 0)
+		{
+			ft_new_list_x(0, 0, ft_atoi(tab[0][0]), file);
+			y++;
+		}
+		while (y < len)
+		{
+			ft_add_list_x(file, x, y, ft_atoi(tab[y][x]));
+			y++;
+		}
+		y = 0;
 	}
-	free(tab);
-	free(reader);
-	return (file);
 }

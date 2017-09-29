@@ -61,33 +61,28 @@ void		ft_check_char(char **file)
 	}
 }
 
-void		ft_check_len(t_file *file)
+void		ft_check_len(char **reader)
 {
-	int		len;
-	int		i;
+	int			len_base;
+	int			len;
+	int			j;
 
-	len = 0;
-	file->current = file->first_x;
-	len = ft_line_len_x(file);
-	while (file->current->next != NULL)
+	j = 1;
+	len_base = ft_check(0, reader);
+	while (reader[j] != 0)
 	{
-		i = ft_line_len_x(file);
-		if (file->current->y != file->current->next->y
-		&& file->current->next != NULL)
-			file->current = file->current->next;
-		if (len != i)
+		len = ft_check(j, reader);
+		if (len != len_base)
 			ft_error();
+		j++;
 	}
 }
 
 t_file		*ft_parse(char **reader)
 {
 	t_file	*file;
-	int		len;
 
-	len = 0;
-	while (reader[len] != 0)
-		len++;
+	ft_check_len(reader);
 	file = ft_create_y(reader);
 	ft_create_x(reader, file);
 	return (file);
@@ -102,6 +97,5 @@ t_file		*ft_get_coord(char *path)
 	write(1, "", 0);
 	ft_check_char(reader);
 	file = ft_parse(reader);
-	ft_check_len(file);
 	return (file);
 }

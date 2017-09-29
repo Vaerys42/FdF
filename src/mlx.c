@@ -39,13 +39,13 @@ int			my_key_func(int key, t_fdf *fdf)
 {
 	if (key == 53)
 		exit(1);
-	if (key == 124)
+	if (key == 123)
 		fdf->key->x += 1;
-	if (key == 123 && fdf->key->x > 0)
+	if (key == 124 && fdf->key->x > 0)
 		fdf->key->x -= 1;
-	if (key == 125)
+	if (key == 126)
 		fdf->key->y += 1;
-	if (key == 126 && fdf->key->y > 0)
+	if (key == 125 && fdf->key->y > 0)
 		fdf->key->y -= 1;
 	if (key == 69)
 		more_alt(fdf);
